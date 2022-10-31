@@ -19,17 +19,18 @@ export class birdPlayer {
   constructor(path, track) {
     this.path = path;
     this.state = false;
+    this.track = track;
     this.run = true;
     this.setListener(path, track);
   }
 
-  setListener(path, track) {
+  setListener(path) {
     this.state = false;
     this.run = true;
     this.audioElement = new Audio(path);
     this.audioElement.addEventListener('timeupdate', (event) => {
       if (this.run) {
-        track.value = this.getCurrentStep();
+        this.track.value = this.getCurrentStep();
         console.log(this.audioElement.currentTime);
       }
     });
