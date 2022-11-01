@@ -1,0 +1,22 @@
+.disk {
+  &:before {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    background-color: gray;
+  }
+  &--active:before {
+    background-color: green;
+  }
+  &--wrong:before {
+    background-color: red;
+  }
+  &--default:before {
+    background-color: gray;
+  }
+}

@@ -42,7 +42,7 @@ export function createBird({ name, species, description, image, id }) {
 
 export function createQuizListItem(item, id = 0) {
   return `
-    <div class='quiz__item' data-id=${id}>
+    <div class='quiz__item disk' data-id=${id}>
       ${item}
     </div>
   `;
@@ -57,15 +57,21 @@ export function createQuizContainer(
   return `
     <div class='quiz'>
       <div class='quiz__head'>
+        <div class='quiz__score-wrapper'>   
+          <h4>Score: </h4>      
+          <div class='quiz__score'>        
+          </div>  
+        </div>  
       </div>
       <div class='quiz__player'>
+        <img class='quiz__bird-placeholder' src='../assets/bird__placeholder.jpg'>
       </div>
       <div class='quiz__list'>
       </div>
       <div class='quiz__desc quiz--hide'>
         
       </div>
-      <button class='btn quiz__btn'>Next</button>
+      <button class='btn quiz__btn'>Next Level</button>
     </div>
   `;
 }

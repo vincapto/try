@@ -1,14 +1,46 @@
-@use 'main';
-@use 'range';
-@use 'quiz';
+@use './variables' as *;
+@use './disk';
+@use './range';
+@use './quiz';
+@use './main';
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  margin: 0;
+  padding: 0;
+  font-family: generalFont;
+}
+body {
+  margin: 0;
+  padding: 0;
+  background-color: $backgroundDark;
+  font-family: $fontSerif;
+  font-size: 15px;
+  color: white;
+}
+
+.container {
+  max-width: 1140px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  box-sizing: border-box;
+}
 
 .player {
   display: flex;
   // max-width: 500px;
   box-sizing: border-box;
   width: 100%;
-  border: 1px gray solid;
+
   gap: 5px;
+  &__timer {
+    display: flex;
+    justify-content: space-between;
+  }
   &__volume {
     max-width: 50px;
   }

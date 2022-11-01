@@ -3,9 +3,34 @@ import birdData from '../data';
 import { createQuizListItem } from './list';
 
 export class Stage {
-  constructor() {
+  constructor(scoreElement, imgPlaceholder) {
     this.stageList = this.initDataStage();
+    this.score = 0;
+    this.stageScore = 0;
+    this.imgPlaceholder = imgPlaceholder;
+    this.scoreElement = scoreElement;
     this.nextStage();
+    this.clickedId = [];
+    this.stagePass = false;
+    this.updateQuizScore();
+  }
+
+  checkAnswer(id) {
+    if (this.isCorrect(id)) {
+      this.score += this.stageScore;
+      this.stagePass = true;
+      this.updateQuizScore();
+      this.updateQuizImgPlaceholder(this.stagePass);
+    } else if (!this.clickedId.includes(id)) {
+      console.log(this.getAnswerId(), id);
+      this.stageScore =
+        this.stageScore !== 0 ? this.stageScore - 1 : this.stageScore;
+      this.clickedId.push(id);
+    }
+  }
+
+  isCorrect(id) {
+    return id == this.getAnswerId() && !this.stagePass;
   }
 
   getNameList(list) {
@@ -37,6 +62,10 @@ export class Stage {
   }
 
   nextStage() {
+    this.stagePass = false;
+    this.stageScore = 5;
+    this.clickedId = [];
+    this.updateQuizImgPlaceholder();
     return this.stageList(true).current;
   }
 
@@ -64,7 +93,9 @@ export class Stage {
     const nameElement = element.querySelector('.bird__name');
     const speciesElement = element.querySelector('.bird__species');
     const textElement = element.querySelector('.bird__text');
-    this.quizAudio = new Quiz(player, '').birdExample;
+    const timerStart = element.querySelector('.player__start');
+    const timerEnd = element.querySelector('.player__end');
+    this.quizAudio = new Quiz(player, '', timerStart, timerEnd).birdExample;
     // this.setRandomQuizBird();
     this.quizAudio.setListener(this.getBirdById(this.getRandomBirdId()).audio);
     return ({ image, name, species, description }) => {
@@ -75,6 +106,12 @@ export class Stage {
     };
   }
 
+  updateQuizImgPlaceholder(correct = false) {
+    this.imgPlaceholder.src = correct
+      ? this.getAnswerBird().image
+      : '../assets/bird__placeholder.jpg';
+  }
+
   initQuizBird(element) {
     this.birdElement = this.generateQuizBird(element);
   }
@@ -83,6 +120,10 @@ export class Stage {
     this.birdElement(this.getBirdById(id));
     this.quizAudio.clearPlayer();
     this.quizAudio.setListener(this.getBirdById(id).audio);
+  }
+
+  updateQuizScore() {
+    this.scoreElement.innerHTML = this.score;
   }
 
   getRandomBirdId() {
@@ -105,19 +146,30 @@ export class Quiz {
   constructor(element, audioDraft) {
     this.playerButton = element.querySelector('.play-bird');
     this.volumeRange = element.querySelector('.volume');
+
     this.timeRange = element.querySelector('.time');
     this.rangeWrapper = element.querySelector('.range-wrapper');
+    this.timerStart = element.querySelector('.player__start');
+    this.timerEnd = element.querySelector('.player__end');
+
     this.setListener();
     this.birdExample = new birdPlayer(
       audioDraft,
       this.timeRange,
-      this.watchPlay.bind(this)
+      this.watchPlay.bind(this),
+      this.timerStart,
+      this.timerEnd
     );
+
+    this.volumeRange.style.background = this.birdExample.getBackgroundAt(50);
   }
 
   setListener() {
     this.timeRange.addEventListener('input', (event) => {
       this.watchTime(event.target.value);
+      console.log(this.timerEnd);
+      this.birdExample.setStartTime();
+      console.log('ss');
     });
 
     this.rangeWrapper.addEventListener('mousedown', (event) => {
@@ -130,6 +182,9 @@ export class Quiz {
 
     this.volumeRange.addEventListener('input', (event) => {
       this.watchVolume(event.target.value);
+      this.volumeRange.style.background = this.birdExample.getBackgroundAt(
+        event.target.value
+      );
     });
 
     this.playerButton.addEventListener('click', (event) => {
