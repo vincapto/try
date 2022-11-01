@@ -16,18 +16,23 @@ export function createPlayerTag(state = false) {
 }
 
 export class birdPlayer {
-  constructor(path, track) {
+  constructor(path, track, callback) {
+    console.log('WATCH BIRD');
+    this.callback = callback;
     this.path = path;
     this.state = false;
     this.track = track;
     this.run = true;
-    this.setListener(path, track);
+    // this.setListener(path, track);
   }
 
   setListener(path) {
     this.state = false;
-    this.run = true;
     this.audioElement = new Audio(path);
+    console.log('listener call');
+    this.audioElement.addEventListener('loadeddata', () => {
+      console.log('----loaded');
+    });
     this.audioElement.addEventListener('timeupdate', (event) => {
       if (this.run) {
         this.track.value = this.getCurrentStep();
@@ -59,17 +64,25 @@ export class birdPlayer {
     this.audioElement.volume = value * 0.01;
   }
 
-  play(callback) {
-    this.audioElement.addEventListener('loadeddata', () => {
-      console.log('loaded');
-    });
+  clearPlayer() {
+    this.audioElement.pause();
+    this.audioElement.currentTime = 0;
+    this.audioElement = null;
+    this.state = false;
+    this.run = false;
+    this.track.value = 0;
+  }
+
+  play() {
+    this.run = true;
+
     if (this.state) {
       this.audioElement.pause();
-      callback(this.state);
+      this.callback(this.state);
       this.state = false;
     } else {
       this.audioElement.play();
-      callback(this.state);
+      this.callback(this.state);
       this.state = true;
     }
   }
