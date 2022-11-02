@@ -8,6 +8,34 @@
   box-sizing: border-box;
 }
 
+p {
+  margin: 0;
+}
+
+h2,
+h3 {
+  margin: 0;
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+h4 {
+  margin: 0;
+  font-size: 1.40625rem;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+h5 {
+  font-size: 1.171875rem;
+  margin: 0;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
 html {
   margin: 0;
   padding: 0;
@@ -35,14 +63,101 @@ body {
   // max-width: 500px;
   box-sizing: border-box;
   width: 100%;
+  align-items: center;
+
+  &__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    margin-right: 10px;
+    outline: none;
+    width: 40px;
+    height: 40px;
+    border: 2px solid #00bc8c;
+    border-radius: 50%;
+    background: transparent;
+    position: relative;
+    &:hover {
+      &::after {
+        transform: scale(1.2) translateX(-35%) translateY(-40%);
+      }
+    }
+    &-pause {
+      display: block;
+      width: 14px;
+      height: 14px;
+      overflow: hidden;
+
+      position: relative;
+      &::after {
+        content: '';
+        position: absolute;
+        border: 0;
+        background: transparent;
+        box-sizing: border-box;
+        width: 0;
+        height: 14.7px;
+        border-radius: 2px;
+        top: 50%;
+        left: 56%;
+        transform: scale(1) translateX(-50%) translateY(-50%);
+
+        border-color: transparent transparent transparent #00bc8c;
+        border-radius: 2px;
+        transition: 100ms all ease;
+        cursor: pointer;
+
+        // play state
+        border-style: solid;
+        border-width: 7.35px 0 7.35px 14.1px;
+      }
+      &.paused::after {
+        content: '';
+        left: 50%;
+        border-style: double;
+        border-width: 0px 0 0px 14.7px;
+        border-radius: 0px;
+      }
+    }
+
+    // &:hover {
+    //   border-color: transparent transparent transparent green;
+    // }
+  }
 
   gap: 5px;
+  &__timer-wrapper {
+    width: 100%;
+    position: relative;
+  }
+  &__start {
+    position: absolute;
+    left: 0;
+  }
+  &__end {
+    position: absolute;
+    right: 0;
+  }
   &__timer {
+    top: 8px;
     display: flex;
-    justify-content: space-between;
+    width: 100%;
+    font-size: 11px;
+    color: #d3d3d3;
+    // justify-content: space-between;
+    // margin-top: 8px;
+    position: relative;
   }
   &__volume {
+    position: relative;
+    display: block;
+    position: relative;
+    height: 4px;
     max-width: 50px;
+    width: 100%;
+    align-self: center;
   }
   &__track {
     width: 100%;
@@ -62,7 +177,68 @@ body {
 
 .range {
   &-wrapper {
-    display: display-inline;
+    display: block;
+    position: relative;
     width: 100%;
+    height: 4px;
   }
+}
+
+@media only screen and (max-width: 600px) {
+  .quiz {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'head'
+      'player'
+      'list'
+      'desc'
+      'btn';
+    &__player {
+      flex-direction: column;
+      align-items: center;
+      .quiz__bird-name {
+        margin-top: 25px;
+        text-align: center;
+      }
+    }
+    &__bird-player {
+      margin: 0;
+    }
+    &__stage {
+      flex-direction: column;
+      justify-content: center;
+    }
+  }
+  .bird {
+    &__info {
+      margin: 0;
+      max-width: 100%;
+      text-align: center;
+      gap: 10px;
+    }
+    &__img-wrapper {
+      max-width: 200px;
+      margin: 0 auto 25px;
+      height: 155px;
+    }
+    &__head {
+      max-height: fit-content;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
+
+.bird-logo img {
+  width: 200px;
+  height: 55px;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

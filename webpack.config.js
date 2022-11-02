@@ -11,7 +11,7 @@ module.exports = {
   mode: mode,
   entry: {
     scripts: './src/index.js',
-    user: './src/user.js',
+    gallery: './src/gallery.js',
   },
   output: {
     filename: '[name].[contenthash].js',
@@ -45,7 +45,7 @@ module.exports = {
       template: './src/about.pug',
       inject: true,
       filename: 'about.html',
-      chunks: ['user'],
+      chunks: ['gallery'],
     }),
   ],
   module: {

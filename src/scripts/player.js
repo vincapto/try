@@ -2,22 +2,22 @@ const RANGE_MAX = 500;
 const VOLUME_MAX = 100;
 const RANGE_SCALE = 0.5;
 export function createPlayerTag(state = false) {
-  const text = state ? 'PLAY' : 'STOP';
+  // const text = state ? 'PLAY' : 'STOP';
   return `
   <div class='player'>
+    <button class='btn player__btn play-bird'><span class='player__btn-pause'></span></button>
     <div class='player__track'>
-      <div class='range-wrapper'>
-        <input type='range' class='time' min=0 max=${RANGE_MAX} value=0 />
-      </div>
-      <div class='player__timer'>
-        <span class='player__start'>00:00</span>
-        <span class='player__end'>00:00</span>
-      </div>
-    </div>
+        <div class='range-wrapper'>
+          <input type='range' class='time' min=0 max=${RANGE_MAX} value=0 />
+        </div>
+          <div class='player__timer'>
+            <span class='player__start'>00:00</span>
+            <span class='player__end'>00:00</span>
+          </div>
+    </div>    
     <div class='player__volume'>
       <input type='range' class='volume' min=0 max=${VOLUME_MAX} value=50 />
-    </div>    
-    <button class='play-bird'>${text}</button>
+    </div>        
   </div>
   `;
 }
@@ -74,8 +74,6 @@ export class birdPlayer {
   }
 
   setStartTime() {
-    console.log(this.start);
-    console.log(`0:${this.start.innerHtml}`);
     const { minutes, seconds } = this.getTimerDisplay(
       this.audioElement.currentTime.toFixed(0)
     );

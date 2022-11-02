@@ -1,15 +1,16 @@
 import { birdPlayer } from './player';
-import birdData from '../data';
+import { birdsData } from '../data';
 import { createQuizListItem } from './list';
 
 export class Stage {
-  constructor(scoreElement, imgPlaceholder) {
+  constructor(scoreElement, imgPlaceholder, namePlaceholder) {
     this.stageList = this.initDataStage();
     this.score = 0;
-    this.stageScore = 0;
+    this.stageScore = 5;
     this.imgPlaceholder = imgPlaceholder;
+    this.namePlaceholder = namePlaceholder;
     this.scoreElement = scoreElement;
-    this.nextStage();
+
     this.clickedId = [];
     this.stagePass = false;
     this.updateQuizScore();
@@ -27,6 +28,14 @@ export class Stage {
         this.stageScore !== 0 ? this.stageScore - 1 : this.stageScore;
       this.clickedId.push(id);
     }
+  }
+
+  isEnd(callback) {
+    console.log('=========');
+    console.log(`${this.score}/${(birdsData.length - 1) * 5} `);
+    this.getStageId() !== birdsData.length - 1
+      ? callback(`${this.score}/${(birdsData.length - 1) * 5} `)
+      : '';
   }
 
   isCorrect(id) {
@@ -58,7 +67,7 @@ export class Stage {
   }
 
   initDataStage() {
-    return this.generateStage(birdData);
+    return this.generateStage(birdsData);
   }
 
   nextStage() {
@@ -67,6 +76,10 @@ export class Stage {
     this.clickedId = [];
     this.updateQuizImgPlaceholder();
     return this.stageList(true).current;
+  }
+
+  getStageId() {
+    return this.stageList().index;
   }
 
   currentStage() {
@@ -80,10 +93,11 @@ export class Stage {
     return (move = false) => {
       const current = stage[index];
       if (move) {
+        console.log('GET STAGW');
         index !== stage.length - 1 ? index++ : index;
         answer = this.getRandomInt(1, current.length);
       }
-      return { current, answer };
+      return { current, answer, index: index };
     };
   }
 
@@ -107,9 +121,14 @@ export class Stage {
   }
 
   updateQuizImgPlaceholder(correct = false) {
-    this.imgPlaceholder.src = correct
-      ? this.getAnswerBird().image
-      : '../assets/bird__placeholder.jpg';
+    if (correct) {
+      this.imgPlaceholder.src = this.getAnswerBird().image;
+      console.log(this.namePlaceholder);
+      this.namePlaceholder.innerHTML = this.getAnswerBird().name;
+    } else {
+      this.imgPlaceholder.src = '../assets/bird__placeholder.jpg';
+      this.namePlaceholder.innerHTML = '******';
+    }
   }
 
   initQuizBird(element) {
@@ -123,7 +142,8 @@ export class Stage {
   }
 
   updateQuizScore() {
-    this.scoreElement.innerHTML = this.score;
+    console.log('SCORE UPDATE');
+    this.scoreElement.innerText = this.score;
   }
 
   getRandomBirdId() {
@@ -145,6 +165,7 @@ export class Stage {
 export class Quiz {
   constructor(element, audioDraft) {
     this.playerButton = element.querySelector('.play-bird');
+    this.playerPause = element.querySelector('.player__btn-pause');
     this.volumeRange = element.querySelector('.volume');
 
     this.timeRange = element.querySelector('.time');
@@ -194,7 +215,9 @@ export class Quiz {
 
   watchPlay(state) {
     const text = state ? 'PLAY' : 'STOP';
-    this.playerButton.innerHTML = text;
+    this.playerPause.classList.toggle('paused');
+
+    // this.playerButton.innerHTML = text;
   }
 
   watchVolume(state) {
