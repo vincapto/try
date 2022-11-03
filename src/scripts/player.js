@@ -1,8 +1,8 @@
 const RANGE_MAX = 500;
 const VOLUME_MAX = 100;
 const RANGE_SCALE = 0.5;
-export function createPlayerTag(state = false) {
-  // const text = state ? 'PLAY' : 'STOP';
+
+export function createPlayerTag() {
   return `
   <div class='player'>
     <button class='btn player__btn play-bird'><span class='player__btn-pause'></span></button>
@@ -22,18 +22,16 @@ export function createPlayerTag(state = false) {
   `;
 }
 
-export class birdPlayer {
+export class Player {
   constructor(path, track, callback, start, end) {
-    console.log('WATCH BIRD');
+    console.log(track);
     this.callback = callback;
     this.path = path;
     this.state = false;
     this.track = track;
     this.run = true;
     this.start = start;
-
     this.end = end;
-    // this.setListener(path, track);
   }
 
   getBackgroundAt(fill) {
@@ -123,9 +121,11 @@ export class birdPlayer {
   }
 
   clearPlayer() {
-    this.audioElement.pause();
-    this.audioElement.currentTime = 0;
-    this.audioElement = null;
+    if (this.audioElement) {
+      this.audioElement.pause();
+      this.audioElement.currentTime = 0;
+      this.audioElement = null;
+    }
     this.state = false;
     this.run = false;
     this.track.value = 0;

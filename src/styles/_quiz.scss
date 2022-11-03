@@ -170,6 +170,7 @@
   &__item {
   }
   &-item {
+    background-color: $backgroundMedium;
     padding: 1rem;
   }
   &__head {
@@ -181,7 +182,7 @@
     padding-bottom: 2rem;
   }
   &__info {
-    max-width: 266px;
+    // max-width: 266px;
     width: 100%;
     display: flex;
     justify-content: space-evenly;
@@ -216,5 +217,15 @@
       overflow: hidden;
       max-height: 100%;
     }
+  }
+}
+
+.gallery__list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  .bird-item {
+    border: 1px solid grey;
+    border-radius: 20px;
   }
 }

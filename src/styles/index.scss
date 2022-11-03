@@ -220,6 +220,7 @@ body {
       max-width: 200px;
       margin: 0 auto 25px;
       height: 155px;
+      flex-shrink: 0;
     }
     &__head {
       max-height: fit-content;

@@ -13,7 +13,10 @@ export function createBirdList(list) {
   `;
 }
 
-export function createBird({ name, species, description, image, id }) {
+export function createBird(
+  { name, species, description, image, id },
+  hide = false
+) {
   return `
   <div class='bird-item bird-item${id} '>
     <div class='bird__head'>
@@ -24,28 +27,30 @@ export function createBird({ name, species, description, image, id }) {
         <h4 class='bird__name'>
           ${name}
         </h4>
-        <div class='bird__species'>
-          ${species}
-        </div>
+        ${hide ? `<div class="bird__species">${species}</div>` : ''}
         <div class='bird__player'>
+          ${createPlayerTag()}
         </div>
     </div>
-
     </div>
-    <div class='bird__description'>
+    ${
+      hide
+        ? `<div class='bird__description'>
       <div class='bird__text'>
         ${description}
       </div>
-    </div>
+    </div>`
+        : ''
+    }
     </div>
     <p class='bird__buffer'>Listen to bird</p>
   `;
 }
 
-export function createQuizListItem(item, id = 0) {
+export function createQuizListItem({ name, id = 0 }) {
   return `
     <div class='quiz__item disk' data-id=${id}>
-      ${item}
+      ${name}
     </div>
   `;
 }
@@ -82,10 +87,10 @@ export function createGalleryList(data) {
   const list = data
     .flat(1)
     .map((a) => {
-      return `<div class='bird-item'>${createPlayerTag(a)}</div>`;
+      return `${createBird(a, createPlayerTag())}`;
     })
     .join('');
-  return list;
+  return `<div class='gallery__list'>${list}</div>`;
 }
 
 export function createQuizContainer(
@@ -95,6 +100,8 @@ export function createQuizContainer(
   desc = ''
 ) {
   return `
+    <div class='quiz__score'>
+    </div>
     <div class='quiz'>
       <div class='quiz__head'>  
         <div class='menu'>        
@@ -102,12 +109,10 @@ export function createQuizContainer(
             <img src='../assets/logo-bird.svg'>
           </div>
           <a href='/about.html'>Gallery</a>
-          
         </div>
         <div class='quiz__stage'></div>
       </div>
-      <div class='quiz__player'>
-        <img class='quiz__bird-placeholder' src='../assets/bird__placeholder.jpg'>
+      <div class='quiz__player'>        
         <div class='quiz__bird-player'>
           <div class='quiz__player-head'>
             <h3 class='quiz__bird-name'>****</h3>          
