@@ -3,7 +3,7 @@ import { RANGE_MAX, VOLUME_MAX } from '../env';
 export function createPlayerTag() {
   return `
   <div class='player'>
-    <button class='btn player__btn play-bird'><span class='player__btn-pause'></span></button>
+    <button class='btn player__btn play-bird'><span class='paused player__btn-pause'></span></button>
     <div class='player__track'>
         <div class='range-wrapper'>
           <input type='range' class='time' min=0 max=${RANGE_MAX} value=0 />

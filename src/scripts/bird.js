@@ -27,7 +27,7 @@ export class Bird {
     this.imgElement.src = image;
     this.nameElement.innerHTML = name;
     this.birdPlayer.clearPlayer();
-    this.birdPlayer.setListener(audio);
+    audio ? this.birdPlayer.setListener(audio) : '';
     this.checkElementExist(this.speciesElement, species);
     this.checkElementExist(this.textElement, description);
   }
@@ -84,11 +84,13 @@ export class Bird {
   }
 
   watchPlay(state) {
-    this.playerPause.classList.toggle('paused');
+    !state
+      ? this.playerPause.classList.remove('paused')
+      : this.playerPause.classList.add('paused');
   }
 
   watchVolume(state) {
-    this.birdPlayer = this.track.getBackgroundAt(state);
+    this.birdPlayer.changeVolume(state);
   }
 
   watchTime(state) {

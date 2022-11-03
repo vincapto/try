@@ -15,10 +15,8 @@ import {
 
 import { birdsData, stageName } from './data';
 
-const wrongAnswerAudio = new Audio('./assets/wrong.mp3');
-const correctAnswerAudio = new Audio('./assets/correct.mp3');
-wrongAnswerAudio.playbackRate = 2;
-correctAnswerAudio.playbackRate = 2;
+const wrongAnswerAudio = getClickAudio('wrong');
+const correctAnswerAudio = getClickAudio('correct');
 
 const quizContainer = createQuizContainer();
 const birdContent = document.querySelector('.bird-content');
@@ -42,8 +40,8 @@ const quizScore = new Score(quizScoreElement);
 
 quizList.innerHTML = stage.getNameList(stage.currentStage());
 
-quizPlayer.innerHTML = createBird(stage.getAnswerBird());
-quizDesc.innerHTML = createBird(stage.getAnswerBird(), true);
+quizPlayer.innerHTML = createBird({});
+quizDesc.innerHTML = createBird({}, true);
 
 const allPlayer = document.querySelectorAll('.bird-item');
 
@@ -83,12 +81,6 @@ quizList.addEventListener('click', (event) => {
   }
 });
 
-function showBoard(score) {
-  quizContent.classList.add('quiz--hide-content');
-  boardScore.classList.add('board-score--show');
-  boardScore.innerHTML = createScoreBoard(score);
-}
-
 quizBtn.addEventListener('click', (event) => {
   stage.nextStage();
   stage.setDummy(birdToListen, stage.getAnswerBird().audio);
@@ -103,8 +95,20 @@ quizBtn.addEventListener('click', (event) => {
   quizStageItemList[stage.getStageId()].classList.add(
     'quiz__stage-item--active'
   );
-  // quizDesc.classList.add('quiz--hide');
+  quizDesc.classList.add('quiz--hide');
 
   // birdExample.clearPlayer();
   // birdExample.setListener(stage.getAnswerBird().audio);
 });
+
+function showBoard(score) {
+  quizContent.classList.add('quiz--hide-content');
+  boardScore.classList.add('board-score--show');
+  boardScore.innerHTML = createScoreBoard(score);
+}
+
+function getClickAudio(path) {
+  const audio = new Audio(`./assets/${path}.mp3`);
+  audio.playbackRate = 2.3;
+  return audio;
+}

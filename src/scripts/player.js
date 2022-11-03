@@ -29,6 +29,8 @@ export class Player {
     this.audioElement.addEventListener('ended', (event) => {
       this.audioElement.currentTime = 0;
       this.track.clearTrack();
+      this.state = false;
+      this.callback(this.state);
     });
   }
 
@@ -56,21 +58,23 @@ export class Player {
       this.audioElement.currentTime = 0;
       this.audioElement = null;
     }
-    this.state = false;
+    this.callback(this.state);
+    // this.state = false;
     this.run = false;
     this.track.updateTrack(0);
   }
 
   play() {
+    console.log('---------------------------', this.state);
     this.run = true;
     if (this.state) {
       this.audioElement.pause();
-      this.callback(this.state);
       this.state = false;
+      this.callback(this.state);
     } else {
       this.audioElement.play();
-      this.callback(this.state);
       this.state = true;
+      this.callback(this.state);
     }
   }
 }
