@@ -1,4 +1,5 @@
 import { Player } from './player';
+import { Track } from './track';
 
 export class Bird {
   constructor(element) {
@@ -10,14 +11,9 @@ export class Bird {
   }
 
   initAudioElement() {
-    this.birdPlayer = new Player(
-      null,
-      this.timeRange,
-      this.watchPlay.bind(this),
-      this.timerStart,
-      this.timerEnd
-    );
-    this.volumeRange.style.background = this.birdPlayer.getBackgroundAt(50);
+    this.track = new Track(this.timeRange, this.timerStart, this.timerEnd);
+    this.birdPlayer = new Player(this.track, this.watchPlay.bind(this));
+    this.volumeRange.style.background = this.track.getBackgroundAt(50);
   }
 
   updateBird({
@@ -64,8 +60,7 @@ export class Bird {
     this.timeRange.addEventListener('input', (event) => {
       this.watchTime(event.target.value);
       console.log(this.timerEnd);
-      this.birdPlayer.setStartTime();
-      console.log('ss');
+      this.birdPlayer.changeTime(event.target.value);
     });
 
     this.rangeWrapper.addEventListener('mousedown', (event) => {
@@ -78,7 +73,7 @@ export class Bird {
 
     this.volumeRange.addEventListener('input', (event) => {
       this.watchVolume(event.target.value);
-      this.volumeRange.style.background = this.birdPlayer.getBackgroundAt(
+      this.volumeRange.style.background = this.track.getBackgroundAt(
         event.target.value
       );
     });
@@ -89,12 +84,11 @@ export class Bird {
   }
 
   watchPlay(state) {
-    const text = state ? 'PLAY' : 'STOP';
     this.playerPause.classList.toggle('paused');
   }
 
   watchVolume(state) {
-    this.birdPlayer.changeVolume(state);
+    this.birdPlayer = this.track.getBackgroundAt(state);
   }
 
   watchTime(state) {

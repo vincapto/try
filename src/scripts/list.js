@@ -1,4 +1,4 @@
-import { RANGE_MAX, VOLUME_MAX } from './player';
+import { RANGE_MAX, VOLUME_MAX } from '../env';
 
 export function createPlayerTag() {
   return `
