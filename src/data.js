@@ -7,7 +7,7 @@ export const stageName = [
   'Морские птицы',
 ];
 
-export const stageNameEn = [
+export const stageNameEng = [
   'Warm-up',
   'Sparrows',
   'Forest birds',

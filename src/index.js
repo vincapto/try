@@ -7,9 +7,11 @@ import {
   createQuizContainer,
   createQuizStageList,
   createScoreBoard,
-} from './scripts/list';
-import { birdsData, stageName } from './data';
+  createLayout,
+} from './scripts/createComponent';
+import { getLangData } from './getData';
 
+const { stageList, data } = getLangData();
 const wrongAnswerAudio = getClickAudio('wrong');
 const correctAnswerAudio = getClickAudio('correct');
 
@@ -20,9 +22,9 @@ const {
   quizDesc,
   quizBtn,
   quizScoreElement,
-} = initQuiz(document);
+} = initQuiz(document, stageList);
 
-const stage = new Stage(birdsData);
+const stage = new Stage(data);
 const quizScore = new Score(quizScoreElement);
 
 quizList.innerHTML = stage.getNameList(stage.currentStage());

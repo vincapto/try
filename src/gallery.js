@@ -2,7 +2,7 @@ import './styles/index.scss';
 import { birdsData, stageName } from './data';
 import { Stage } from './scripts/quiz';
 import { Bird } from './scripts/bird';
-import { createGalleryList } from './scripts/list';
+import { createGalleryList } from './scripts/createComponent';
 
 const container = document.querySelector('.container');
 const audioDraft = birdsData[0][0].audio;

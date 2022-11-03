@@ -1,5 +1,5 @@
 import { Bird } from './bird';
-import { createQuizListItem } from './list';
+import { createQuizListItem } from './createComponent';
 
 export class Stage {
   constructor(quizData) {

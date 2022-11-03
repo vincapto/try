@@ -1,7 +1,12 @@
-import { createQuizContainer, createQuizStageList } from './list';
-import { birdsData, stageName } from '../data';
-export default function initQuizContainer(element) {
-  const quizContainer = element.querySelector('.bird-content');
+import {
+  createQuizContainer,
+  createQuizStageList,
+  createLayout,
+} from './createComponent';
+
+export default function initQuizContainer(element, stageName) {
+  element.querySelector('body').innerHTML = createLayout();
+  const quizContainer = element.querySelector('.container');
   quizContainer.innerHTML = createQuizContainer();
   const quizStage = element.querySelector('.quiz__stage');
   quizStage.innerHTML = createQuizStageList(stageName);

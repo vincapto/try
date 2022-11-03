@@ -1,5 +1,29 @@
 import { RANGE_MAX, VOLUME_MAX } from '../env';
 
+export function createLayout(header = '', main = '') {
+  return `
+  <header class='header'>${header}</header>
+  <main class='container'>${main}</main>
+  <footer class='footer'>   
+    <a href='https://github.com/vincapto'>GitHub</a>    
+    <span>2022</span> 
+    <a href='https://rs.school/js/'><img src='../assets/logo-school.svg'></a>
+  </footer>
+  `;
+}
+
+export function createMenu(list) {
+  return `
+    <ul>
+      ${list
+        .map((a) => {
+          return `<li><a href='${a.link}'>${a.text}</li>`;
+        })
+        .join('')}
+    </ul>
+  `;
+}
+
 export function createPlayerTag() {
   return `
   <div class='player'>
