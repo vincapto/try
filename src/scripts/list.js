@@ -113,12 +113,7 @@ export function createGalleryList(data) {
   return `<div class='gallery__list'>${list}</div>`;
 }
 
-export function createQuizContainer(
-  head = '',
-  player = '',
-  list = '',
-  desc = ''
-) {
+export function createQuizContainer() {
   return `
     <div class='quiz__score'>
     </div>

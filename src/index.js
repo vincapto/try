@@ -1,79 +1,52 @@
 import './styles/index.scss';
 import { Stage } from './scripts/quiz';
-import { Bird } from './scripts/bird';
 import { Score } from './scripts/score';
-import { Player } from './scripts/player';
+import initQuiz from './scripts/initQuiz';
 import {
   createBird,
-  createPlayerTag,
-  createBirdList,
   createQuizContainer,
-  createQuizListItem,
   createQuizStageList,
   createScoreBoard,
 } from './scripts/list';
-
 import { birdsData, stageName } from './data';
 
 const wrongAnswerAudio = getClickAudio('wrong');
 const correctAnswerAudio = getClickAudio('correct');
 
-const quizContainer = createQuizContainer();
-const birdContent = document.querySelector('.bird-content');
-
-birdContent.innerHTML = quizContainer;
-const boardScore = document.querySelector('.board-score');
-const quizContent = document.querySelector('.quiz');
-const quizStageList = document.querySelector('.quiz__stage');
-quizStageList.innerHTML = createQuizStageList(stageName);
-
-const quizStageItemList = document.querySelectorAll('.quiz__stage-item');
-const quizList = document.querySelector('.quiz__list');
-
-const quizPlayer = document.querySelector('.quiz__bird-player');
-const quizDesc = document.querySelector('.quiz__desc');
-const quizBtn = document.querySelector('.quiz__btn');
-const quizScoreElement = document.querySelector('.quiz__score');
+const {
+  quizStageItemList,
+  quizList,
+  quizPlayer,
+  quizDesc,
+  quizBtn,
+  quizScoreElement,
+} = initQuiz(document);
 
 const stage = new Stage(birdsData);
 const quizScore = new Score(quizScoreElement);
 
 quizList.innerHTML = stage.getNameList(stage.currentStage());
-
 quizPlayer.innerHTML = createBird({});
 quizDesc.innerHTML = createBird({}, true);
 
 const allPlayer = document.querySelectorAll('.bird-item');
-
-console.log(allPlayer);
-
-// const birdPlayerQuiz = allPlayer[1];
-// birdPlayerQuiz.innerHTML = createPlayerTag();
-
-const birdFromList = stage.initQuizBird(allPlayer[1]);
-
 const birdToListen = stage.initQuizBird(allPlayer[0]);
+const birdFromList = stage.initQuizBird(allPlayer[1]);
 
 stage.setDummy(birdToListen, stage.getAnswerBird().audio);
 quizScore.setMaxStageScore(stage.currentStage());
-// const birdExample = new Bird(allPlayer[0], audioDraft).birdPlayer;
-// birdExample.setListener(stage.getAnswerBird().audio);
 
 quizList.addEventListener('click', (event) => {
   if (event.target !== quizList) {
-    const birdId = event.target.dataset.id;
+    const option = event.target;
+    const birdId = option.dataset.id;
     stage.updateQuizBird(birdFromList, birdId);
-
     if (!stage.stagePass) {
       if (stage.isCorrect(birdId)) {
         stage.updateQuizBird(birdToListen, stage.getAnswerId());
-        event.target.classList.add('disk--active');
-        correctAnswerAudio.play();
-        quizScore.updateScoreElement();
+        callOptionClick(option, true);
       } else if (!stage.clickedId.includes(birdId)) {
-        event.target.classList.add('disk--wrong');
-        wrongAnswerAudio.play();
-        quizScore.subScore();
+        callOptionClick(option);
       }
     }
     quizDesc.classList.remove('quiz--hide');
@@ -85,26 +58,33 @@ quizBtn.addEventListener('click', (event) => {
   stage.nextStage();
   stage.setDummy(birdToListen, stage.getAnswerBird().audio);
   quizScore.setMaxStageScore(stage.currentStage());
-  // stage.isEnd(showBoard);
   quizList.innerHTML = stage.getNameList(stage.currentStage());
-
-  quizStageItemList[stage.getStageId() - 1].classList.remove(
-    'quiz__stage-item--active'
-  );
-
-  quizStageItemList[stage.getStageId()].classList.add(
-    'quiz__stage-item--active'
-  );
+  toggleDisk([1, 0]);
   quizDesc.classList.add('quiz--hide');
-
-  // birdExample.clearPlayer();
-  // birdExample.setListener(stage.getAnswerBird().audio);
 });
 
 function showBoard(score) {
   quizContent.classList.add('quiz--hide-content');
   boardScore.classList.add('board-score--show');
   boardScore.innerHTML = createScoreBoard(score);
+}
+
+function callOptionClick(element, correct = false) {
+  element.classList.add(`disk--${correct ? 'active' : 'wrong'}`);
+  correct ? quizScore.updateScoreElement() : quizScore.subScore();
+  callAudioClick(correct);
+}
+
+function callAudioClick(correct = false) {
+  correct ? correctAnswerAudio.play() : wrongAnswerAudio.play();
+}
+
+function toggleDisk(list) {
+  list.forEach((a) =>
+    quizStageItemList[stage.getStageId() - a].classList.toggle(
+      'quiz__stage-item--active'
+    )
+  );
 }
 
 function getClickAudio(path) {
