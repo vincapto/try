@@ -38,8 +38,8 @@ export class Stage {
       : '';
   }
 
-  isEnd(callback) {
-    this.getStageId() !== stageLength.length - 1 ? callback(`' 1 '`) : '';
+  isEnd(callback, score) {
+    this.getStageId() !== this.stageLength.length - 1 ? callback(score) : '';
   }
 
   isCorrect(id) {

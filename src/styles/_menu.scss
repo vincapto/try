@@ -1,0 +1,43 @@
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  @media only screen and (max-width: 360px) {
+    flex-direction: column;
+  }
+  margin-bottom: 10px;
+}
+
+.menu {
+  display: flex;
+  gap: 5px;
+
+  @media only screen and (max-width: 360px) {
+    justify-content: center;
+  }
+
+  &__list {
+    display: flex;
+    gap: 10px;
+    text-transform: capitalize;
+    margin-left: 10px;
+  }
+  &__item {
+    position: relative;
+    &:hover {
+      &::after {
+        width: 100%;
+      }
+    }
+    &::after {
+      content: '';
+      width: 0%;
+      height: 1px;
+      position: absolute;
+      left: 0;
+      bottom: -3px;
+      border-bottom: 3px solid green;
+      transition: width 0.2s;
+    }
+  }
+}

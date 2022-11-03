@@ -1,8 +1,15 @@
 @use './variables' as *;
 @use './disk';
+@use './board';
+@use './footer';
+@use './menu';
+@use './common';
+@use './stage';
+@use './playback';
+@use './bird';
+@use './player';
 @use './range';
 @use './quiz';
-@use './main';
 
 * {
   box-sizing: border-box;
@@ -10,6 +17,11 @@
 
 p {
   margin: 0;
+}
+
+a {
+  color: white;
+  text-decoration: none;
 }
 
 h2,
@@ -50,6 +62,12 @@ body {
   color: white;
 }
 
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
 .container {
   max-width: 1140px;
   width: 100%;
@@ -58,157 +76,7 @@ body {
   box-sizing: border-box;
 }
 
-.player {
-  display: flex;
-  // max-width: 500px;
-  box-sizing: border-box;
-  width: 100%;
-  align-items: center;
-
-  &__btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    flex-shrink: 0;
-    margin-right: 10px;
-    outline: none;
-    width: 40px;
-    height: 40px;
-    border: 2px solid #00bc8c;
-    border-radius: 50%;
-    background: transparent;
-    position: relative;
-    &:hover {
-      &::after {
-        transform: scale(1.2) translateX(-35%) translateY(-40%);
-      }
-    }
-    &-pause {
-      display: block;
-      width: 14px;
-      height: 14px;
-      overflow: hidden;
-
-      position: relative;
-      &::after {
-        content: '';
-        position: absolute;
-        border: 0;
-        background: transparent;
-        box-sizing: border-box;
-        width: 0;
-        height: 14.7px;
-        border-radius: 2px;
-        top: 50%;
-        left: 56%;
-        transform: scale(1) translateX(-50%) translateY(-50%);
-
-        border-color: transparent transparent transparent #00bc8c;
-        border-radius: 2px;
-        transition: 100ms all ease;
-        cursor: pointer;
-
-        // play state
-        border-style: solid;
-        border-width: 7.35px 0 7.35px 14.1px;
-      }
-      &.paused::after {
-        content: '';
-        left: 50%;
-        border-style: double;
-        border-width: 0px 0 0px 14.7px;
-        border-radius: 0px;
-      }
-    }
-
-    // &:hover {
-    //   border-color: transparent transparent transparent green;
-    // }
-  }
-
-  gap: 5px;
-  &__timer-wrapper {
-    width: 100%;
-    position: relative;
-  }
-  &__start {
-    position: absolute;
-    left: 0;
-  }
-  &__end {
-    position: absolute;
-    right: 0;
-  }
-  &__timer {
-    top: 8px;
-    display: flex;
-    width: 100%;
-    font-size: 11px;
-    color: #d3d3d3;
-    // justify-content: space-between;
-    // margin-top: 8px;
-    position: relative;
-  }
-  &__volume {
-    position: relative;
-    display: block;
-    position: relative;
-    height: 4px;
-    max-width: 50px;
-    width: 100%;
-    align-self: center;
-  }
-  &__track {
-    width: 100%;
-    &-wrapper {
-      max-width: 80%;
-    }
-  }
-}
-
-.time {
-  width: 100%;
-}
-
-.volume {
-  width: 100%;
-}
-
-.range {
-  &-wrapper {
-    display: block;
-    position: relative;
-    width: 100%;
-    height: 4px;
-  }
-}
-
 @media only screen and (max-width: 600px) {
-  .quiz {
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      'head'
-      'player'
-      'list'
-      'desc'
-      'btn';
-    &__player {
-      flex-direction: column;
-      align-items: center;
-      .quiz__bird-name {
-        margin-top: 25px;
-        text-align: center;
-      }
-    }
-    &__bird-player {
-      margin: 0;
-    }
-    &__stage {
-      flex-direction: column;
-      justify-content: center;
-    }
-  }
   .bird {
     &__info {
       margin: 0;
@@ -236,10 +104,4 @@ body {
   height: 55px;
   background-size: contain;
   background-repeat: no-repeat;
-}
-
-.menu {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }

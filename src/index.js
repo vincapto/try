@@ -2,27 +2,23 @@ import './styles/index.scss';
 import { Stage } from './scripts/quiz';
 import { Score } from './scripts/score';
 import initQuiz from './scripts/initQuiz';
-import {
-  createBird,
-  createQuizContainer,
-  createQuizStageList,
-  createScoreBoard,
-  createLayout,
-} from './scripts/createComponent';
+import { createBird, createScoreBoard } from './scripts/createComponent';
 import { getLangData } from './getData';
 
-const { stageList, data } = getLangData();
+const { stageList, data, menu } = getLangData();
 const wrongAnswerAudio = getClickAudio('wrong');
 const correctAnswerAudio = getClickAudio('correct');
 
 const {
+  boardScore,
   quizStageItemList,
   quizList,
   quizPlayer,
   quizDesc,
   quizBtn,
+  quizContent,
   quizScoreElement,
-} = initQuiz(document, stageList);
+} = initQuiz(document, stageList, menu);
 
 const stage = new Stage(data);
 const quizScore = new Score(quizScoreElement);
@@ -31,7 +27,8 @@ quizList.innerHTML = stage.getNameList(stage.currentStage());
 quizPlayer.innerHTML = createBird({});
 quizDesc.innerHTML = createBird({}, true);
 
-const allPlayer = document.querySelectorAll('.bird-item');
+const allPlayer = document.querySelectorAll('.bird');
+console.log(allPlayer);
 const birdToListen = stage.initQuizBird(allPlayer[0]);
 const birdFromList = stage.initQuizBird(allPlayer[1]);
 
@@ -47,6 +44,7 @@ quizList.addEventListener('click', (event) => {
       if (stage.isCorrect(birdId)) {
         stage.updateQuizBird(birdToListen, stage.getAnswerId());
         callOptionClick(option, true);
+        stage.isEnd(showBoard, quizScore.getResultScore(data));
       } else if (!stage.clickedId.includes(birdId)) {
         callOptionClick(option);
       }
@@ -84,7 +82,7 @@ function callAudioClick(correct = false) {
 function toggleDisk(list) {
   list.forEach((a) =>
     quizStageItemList[stage.getStageId() - a].classList.toggle(
-      'quiz__stage-item--active'
+      'stage__item--active'
     )
   );
 }

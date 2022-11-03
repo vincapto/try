@@ -17,7 +17,7 @@ export class Score {
 
   updateScoreElement() {
     this.nextStage();
-    this.scoreElement.innerText = this.score;
+    this.scoreElement.innerText = `Score: ${this.score}`;
   }
 
   setMaxStageScore(stage) {
@@ -25,13 +25,15 @@ export class Score {
   }
 
   getMaxScore(list) {
+    console.log(list);
     return list.reduce((acc, next) => {
+      console.log(acc);
       return (acc += next.length - 1);
-    });
+    }, 0);
   }
 
-  getResultScore() {
-    return `${this.score}/${this.getMaxScore([[]])}`;
+  getResultScore(list) {
+    return `${this.score}/${this.getMaxScore(list)}`;
   }
 
   subScore() {

@@ -37,11 +37,11 @@ export class Bird {
   }
 
   initPlayerElement(element) {
-    this.playerButton = element.querySelector('.play-bird');
-    this.playerPause = element.querySelector('.player__btn-pause');
+    this.playerButton = element.querySelector('.player__btn');
+    this.playerPause = element.querySelector('.player__playback');
     this.volumeRange = element.querySelector('.volume');
-    this.timeRange = element.querySelector('.time');
-    this.rangeWrapper = element.querySelector('.range-wrapper');
+    this.timeRange = element.querySelector('.track');
+    this.rangeWrapper = element.querySelector('.track-wrapper');
     this.timerStart = element.querySelector('.player__start');
     this.timerEnd = element.querySelector('.player__end');
   }

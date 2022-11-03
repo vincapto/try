@@ -2,40 +2,52 @@ import { RANGE_MAX, VOLUME_MAX } from '../env';
 
 export function createLayout(header = '', main = '') {
   return `
-  <header class='header'>${header}</header>
-  <main class='container'>${main}</main>
-  <footer class='footer'>   
-    <a href='https://github.com/vincapto'>GitHub</a>    
-    <span>2022</span> 
-    <a href='https://rs.school/js/'><img src='../assets/logo-school.svg'></a>
+  <header class='header container'>${header}</header>
+  <main class='main container'>${main}</main>
+  <footer class='footer container'>   
+    <div class='content block'>
+      <a href='https://github.com/vincapto'>GitHub</a>    
+      <span>2022</span> 
+      <a class='footer__link' href='https://rs.school/js/'>
+        <img src='../assets/logo-school.svg'>
+      </a>
+    </div>
   </footer>
   `;
 }
 
 export function createMenu(list) {
   return `
-    <ul>
-      ${list
-        .map((a) => {
-          return `<li><a href='${a.link}'>${a.text}</li>`;
-        })
-        .join('')}
-    </ul>
+    <div class='top'>
+      <div class='bird-logo'>
+        <img src='../assets/logo-bird.svg'>
+      </div>
+      <h5 class='quiz__score'></h5>
+    </div>
+    <nav class='menu'>        
+      <ul class='menu__list'>
+        ${list
+          .map((a) => {
+            return `<li class='menu__item'><a href='${a.link}'>${a.text}</a></li>`;
+          })
+          .join('')}
+      </ul>
+  </nav>
   `;
 }
 
 export function createPlayerTag() {
   return `
   <div class='player'>
-    <button class='btn player__btn play-bird'><span class='paused player__btn-pause'></span></button>
+    <button class='btn player__btn'><span class='paused player__playback'></span></button>
     <div class='player__track'>
-        <div class='range-wrapper'>
-          <input type='range' class='time' min=0 max=${RANGE_MAX} value=0 />
-        </div>
-          <div class='player__timer'>
-            <span class='player__start'>00:00</span>
-            <span class='player__end'>00:00</span>
-          </div>
+      <div class='track-wrapper'>
+        <input type='range' class='track' min=0 max=${RANGE_MAX} value=0 />
+      </div>
+      <div class='player__timer'>
+        <span class='player__start'>00:00</span>
+        <span class='player__end'>00:00</span>
+      </div>
     </div>    
     <div class='player__volume'>
       <input type='range' class='volume' min=0 max=${VOLUME_MAX} value=50 />
@@ -62,7 +74,7 @@ export function createBird(
   hide = false
 ) {
   return `
-  <div class='bird-item bird-item${id} '>
+  <div class='bird '>
     <div class='bird__head'>
       <div class='bird__img-wrapper'>
         <img class='bird__img' src='${image}'>
@@ -118,9 +130,9 @@ export function createScoreBoard(score) {
 }
 
 export function createQuizStageItem(item, id = 0) {
-  const addClass = id !== 0 ? '' : 'quiz__stage-item--active';
+  const addClass = id !== 0 ? '' : 'stage__item--active';
   return `
-    <div class='quiz__stage-item ${addClass}' data-id=${id}>
+    <div class='stage__item ${addClass}' data-id=${id}>
       <p>${item}</p>
     </div>
   `;
@@ -139,33 +151,17 @@ export function createGalleryList(data) {
 
 export function createQuizContainer() {
   return `
-    <div class='quiz__score'>
-    </div>
     <div class='quiz'>
       <div class='quiz__head'>  
-        <div class='menu'>        
-          <div class='bird-logo'>
-            <img src='../assets/logo-bird.svg'>
-          </div>
-          <a href='/about.html'>Gallery</a>
-        </div>
-        <div class='quiz__stage'></div>
+        <div class='quiz__stage stage'></div>
       </div>
-      <div class='quiz__player'>        
-        <div class='quiz__bird-player'>
-          <div class='quiz__player-head'>
-            <h3 class='quiz__bird-name'>****</h3>          
-            <div class='quiz__score-wrapper'>   
-              <h5>Score: 
-                <span class='quiz__score'></span>  
-              </h5>      
-            </div>              
-          </div>
+      <div class='quiz__player block'>        
+        <div class='quiz__bird-player'>         
         </div>
       </div>
       <div class='quiz__list'>
       </div>
-      <div class='quiz__desc quiz--hide'>        
+      <div class='quiz__desc block quiz--hide'>        
       </div>
       <button class='btn quiz__btn'>Next Level</button>
     </div>
