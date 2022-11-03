@@ -2,9 +2,10 @@ import './styles/index.scss';
 import { Stage } from './scripts/quiz';
 import { Bird } from './scripts/bird';
 import { Score } from './scripts/score';
-import { createPlayerTag, Player } from './scripts/player';
+import { Player } from './scripts/player';
 import {
   createBird,
+  createPlayerTag,
   createBirdList,
   createQuizContainer,
   createQuizListItem,
@@ -19,7 +20,6 @@ const correctAnswerAudio = new Audio('./assets/correct.mp3');
 wrongAnswerAudio.playbackRate = 2;
 correctAnswerAudio.playbackRate = 2;
 
-const audioDraft = birdsData[0][0].audio;
 const quizContainer = createQuizContainer();
 const birdContent = document.querySelector('.bird-content');
 

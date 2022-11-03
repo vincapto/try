@@ -1,25 +1,58 @@
-const RANGE_MAX = 500;
-const VOLUME_MAX = 100;
-const RANGE_SCALE = 0.5;
+export const RANGE_MAX = 500;
+export const VOLUME_MAX = 100;
+export const RANGE_SCALE = 0.5;
 
-export function createPlayerTag() {
-  return `
-  <div class='player'>
-    <button class='btn player__btn play-bird'><span class='player__btn-pause'></span></button>
-    <div class='player__track'>
-        <div class='range-wrapper'>
-          <input type='range' class='time' min=0 max=${RANGE_MAX} value=0 />
-        </div>
-          <div class='player__timer'>
-            <span class='player__start'>00:00</span>
-            <span class='player__end'>00:00</span>
-          </div>
-    </div>    
-    <div class='player__volume'>
-      <input type='range' class='volume' min=0 max=${VOLUME_MAX} value=50 />
-    </div>        
-  </div>
-  `;
+class Track {
+  constructor(track, start, end) {
+    this.track = track;
+    this.start = start;
+    this.end = end;
+  }
+
+  getBackgroundAt(fill) {
+    return (
+      'linear-gradient(to right, rgb(0, 188, 140) 0%, rgb(61, 133, 140) ' +
+      fill +
+      '%, rgb(115, 115, 115) ' +
+      fill +
+      '%, rgb(115, 115, 115) 100%)'
+    );
+  }
+
+  fillTrack(value) {
+    const fill = (value / RANGE_MAX) * 100;
+    return this.getBackgroundAt(fill);
+  }
+
+  getTimerFormat(current) {
+    const str = current + '';
+    if (str.length < 2) {
+      return '0' + str;
+    } else {
+      return str;
+    }
+  }
+
+  getTimerDisplay(time) {
+    const minutes = this.getTimerFormat(parseInt(time / 60));
+    const seconds = this.getTimerFormat(time % 60);
+    return { minutes, seconds };
+  }
+
+  setTime(element, audio) {
+    const { minutes, seconds } = this.getTimerDisplay(
+      audio.duration.toFixed(0)
+    );
+    element.innerText = `${minutes}:${seconds}`;
+  }
+
+  setStart(audio) {
+    this.setTime(this.start, audio);
+  }
+
+  setEnd(audio) {
+    this.setTime(this.end, audio);
+  }
 }
 
 export class Player {
@@ -28,8 +61,9 @@ export class Player {
     this.callback = callback;
     this.path = path;
     this.state = false;
-    this.track = track;
     this.run = true;
+    this.track = new Track(track, start, end);
+    this.track = track;
     this.start = start;
     this.end = end;
   }
@@ -134,7 +168,6 @@ export class Player {
 
   play() {
     this.run = true;
-
     if (this.state) {
       this.audioElement.pause();
       this.callback(this.state);

@@ -1,4 +1,24 @@
-import { createPlayerTag } from './player';
+import { RANGE_MAX, VOLUME_MAX } from './player';
+
+export function createPlayerTag() {
+  return `
+  <div class='player'>
+    <button class='btn player__btn play-bird'><span class='player__btn-pause'></span></button>
+    <div class='player__track'>
+        <div class='range-wrapper'>
+          <input type='range' class='time' min=0 max=${RANGE_MAX} value=0 />
+        </div>
+          <div class='player__timer'>
+            <span class='player__start'>00:00</span>
+            <span class='player__end'>00:00</span>
+          </div>
+    </div>    
+    <div class='player__volume'>
+      <input type='range' class='volume' min=0 max=${VOLUME_MAX} value=50 />
+    </div>        
+  </div>
+  `;
+}
 
 export function createBirdList(list) {
   const birdList = list
