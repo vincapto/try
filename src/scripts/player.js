@@ -2,7 +2,6 @@ import { RANGE_MAX } from '../env';
 
 export class Player {
   constructor(track, callback) {
-    console.log(track);
     this.callback = callback;
     this.state = false;
     this.run = true;

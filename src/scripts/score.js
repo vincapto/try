@@ -7,11 +7,11 @@ export class Score {
   clearScore() {
     this.score = 0;
     this.stageScore = 0;
-    this.stagePass = false;
     this.updateScoreElement();
   }
 
   nextStage() {
+    console.log('+++++++++++', this.stageScore, this.score);
     this.score += this.stageScore;
   }
 
@@ -37,6 +37,7 @@ export class Score {
   }
 
   subScore() {
+    console.log('+++++++++++', this.stageScore, this.score);
     this.stageScore =
       this.stageScore !== 0 ? this.stageScore - 1 : this.stageScore;
   }

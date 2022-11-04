@@ -3,9 +3,16 @@ import { createQuizListItem } from './createComponent';
 
 export class Stage {
   constructor(quizData) {
+    this.quizData = quizData;
     this.stageList = this.initDataStage(quizData);
     this.clickedId = [];
     this.stageLength = quizData.length;
+  }
+
+  repeatQuiz() {
+    this.stageList = this.initDataStage(this.quizData);
+    this.clickedId = [];
+    this.stagePass = false;
   }
 
   initDataStage(quizData) {
@@ -25,8 +32,6 @@ export class Stage {
   }
 
   updateQuizBird(element, id) {
-    console.log(this.getBirdById(id));
-    console.log(element);
     element.updateBird(this.getBirdById(id));
   }
 
@@ -39,7 +44,7 @@ export class Stage {
   }
 
   isEnd(callback, score) {
-    this.getStageId() !== this.stageLength.length - 1 ? callback(score) : '';
+    this.getStageId() == this.stageLength - 1 ? callback(score) : '';
   }
 
   isCorrect(id) {

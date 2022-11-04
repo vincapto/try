@@ -143,7 +143,8 @@ export function createGalleryList(data) {
   const list = data
     .flat(1)
     .map((a) => {
-      return `${createBird(a, createPlayerTag())}`;
+      return `<div class='block'>${createBird({ ...a }, true)}</div>`;
+      // return `${createBird(a, createPlayerTag())}`;
     })
     .join('');
   return `<div class='gallery__list'>${list}</div>`;

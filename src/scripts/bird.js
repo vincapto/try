@@ -3,7 +3,6 @@ import { Track } from './track';
 
 export class Bird {
   constructor(element) {
-    console.log(element);
     this.initPlayerElement(element);
     this.initDescriptionElement(element);
     this.initAudioElement();
@@ -23,7 +22,6 @@ export class Bird {
     description = '',
     audio = '',
   }) {
-    console.log(this.imgElement);
     this.imgElement.src = image;
     this.nameElement.innerHTML = name;
     this.birdPlayer.clearPlayer();
@@ -59,7 +57,6 @@ export class Bird {
   initListener() {
     this.timeRange.addEventListener('input', (event) => {
       this.watchTime(event.target.value);
-      console.log(this.timerEnd);
       this.birdPlayer.changeTime(event.target.value);
     });
 

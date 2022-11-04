@@ -1,11 +1,13 @@
+import { Bird } from './bird';
 import {
   createQuizContainer,
   createQuizStageList,
   createLayout,
   createMenu,
+  createGalleryList,
 } from './createComponent';
 
-export default function initQuizContainer(element, stageName, menu) {
+export function initQuizContainer(element, stageName, menu) {
   element.querySelector('body').innerHTML = createLayout(createMenu(menu));
   const quizContainer = element.querySelector('.main');
   quizContainer.innerHTML = createQuizContainer();
@@ -29,4 +31,19 @@ export default function initQuizContainer(element, stageName, menu) {
     quizScoreElement,
     quizContent,
   };
+}
+
+export function initGalleryContainer(element, data, menu) {
+  element.querySelector('body').innerHTML = createLayout(createMenu(menu));
+  const galleryContainer = element.querySelector('.main');
+  galleryContainer.innerHTML = createGalleryList(data);
+  const allPlayer = document.querySelectorAll('.player');
+  const flatAudioList = data.flat(1);
+  allPlayer.forEach((a, key) => {
+    new Bird(a, flatAudioList[key].audio).birdPlayer.setListener(
+      flatAudioList[key].audio
+    );
+  });
+
+  return {};
 }

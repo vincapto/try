@@ -10,8 +10,9 @@ console.log(mode + ' mode');
 module.exports = {
   mode: mode,
   entry: {
-    scripts: './src/index.js',
+    index: './src/index.js',
     gallery: './src/gallery.js',
+    quiz: './src/quizApp.js',
   },
   output: {
     filename: '[name].[contenthash].js',
@@ -36,16 +37,22 @@ module.exports = {
       filename: '[name].[contenthash].css',
     }),
     new HtmlWebpackPlugin({
-      template: './src/index.pug',
+      template: './src/pages/quiz.pug',
       inject: true,
-      filename: 'index.html',
-      chunks: ['scripts'],
+      filename: 'quiz.html',
+      chunks: ['quiz'],
     }),
     new HtmlWebpackPlugin({
-      template: './src/about.pug',
+      template: './src/pages/gallery.pug',
       inject: true,
-      filename: 'about.html',
+      filename: 'gallery.html',
       chunks: ['gallery'],
+    }),
+    new HtmlWebpackPlugin({
+      template: './src/pages/index.pug',
+      inject: true,
+      filename: 'index.html',
+      chunks: ['index'],
     }),
   ],
   module: {
