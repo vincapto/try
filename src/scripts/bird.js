@@ -19,6 +19,11 @@ export class Bird {
     this.birdPlayer.setWatcher(watch);
   }
 
+  birdPlayerSet(audio) {
+    this.birdPlayer.clearPlayer();
+    this.birdPlayer.setListener(audio, this.watchLoad.bind(this));
+  }
+
   updateBird(
     { image = '', name = '', species = '', description = '', audio = '' },
     stop = false
@@ -26,8 +31,7 @@ export class Bird {
     this.imgElement.src = image;
     this.nameElement.innerHTML = name;
     if (audio && !stop) {
-      this.birdPlayer.clearPlayer();
-      this.birdPlayer.setListener(audio);
+      this.birdPlayerSet(audio);
     } else {
       this.birdPlayer.stopPlayer();
     }
@@ -44,9 +48,11 @@ export class Bird {
     this.playerPause = element.querySelector('.player__playback');
     this.volumeRange = element.querySelector('.volume');
     this.timeRange = element.querySelector('.track');
+    this.playerTrack = element.querySelector('.player__track');
     this.rangeWrapper = element.querySelector('.track-wrapper');
     this.timerStart = element.querySelector('.player__start');
     this.timerEnd = element.querySelector('.player__end');
+    this.loading = element.querySelector('.player__loading');
   }
 
   initDescriptionElement(element) {
@@ -93,6 +99,14 @@ export class Bird {
 
   watchVolume(state) {
     this.birdPlayer.changeVolume(state);
+  }
+
+  watchLoad() {
+    console.log('GOT LOADED LOL');
+    this.loading.classList.add('player--hide');
+    this.playerTrack.classList.remove('player--hide');
+    this.volumeRange.classList.remove('player--hide');
+    this.playerButton.disabled = false;
   }
 
   watchTime(state) {

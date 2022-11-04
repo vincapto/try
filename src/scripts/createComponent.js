@@ -42,9 +42,10 @@ export function createMenu(list) {
 
 export function createPlayerTag() {
   return `
+  
   <div class='player'>
-    <button class='btn player__btn'><span class='player__playback'></span></button>
-    <div class='player__track'>
+    <button class='btn player__btn' disabled><span class='player__playback'></span></button>
+    <div class='player__track player--hide'>
       <div class='track-wrapper'>
         <input type='range' class='track' min=0 max=${RANGE_MAX} value=0 />
       </div>
@@ -53,9 +54,10 @@ export function createPlayerTag() {
         <span class='player__end'>00:00</span>
       </div>
     </div>    
-    <div class='player__volume'>
-      <input type='range' class='volume' min=0 max=${VOLUME_MAX} value=50 />
+    <div class='player__volume '>
+      <input type='range' class='volume player--hide' min=0 max=${VOLUME_MAX} value=50 />
     </div>        
+    <div class='player__loading'>Loading...</div>
   </div>
   `;
 }
@@ -150,7 +152,6 @@ export function createQuizStageItem(item, id = 0) {
 }
 
 export function createGalleryList(data) {
-  console.log(data.flat(1));
   const list = data
     .flat(1)
     .map((a) => {

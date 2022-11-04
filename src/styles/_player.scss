@@ -4,6 +4,9 @@
   width: 100%;
   align-items: center;
   gap: 5px;
+  &--hide {
+    display: none;
+  }
   &__btn {
     cursor: pointer;
     display: flex;

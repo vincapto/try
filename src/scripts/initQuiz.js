@@ -60,13 +60,12 @@ export function initGalleryContainer(element, data, menu) {
   const flatAudioList = data.flat(1);
   console.log(allPlayer);
   const birdList = [...allPlayer].map((a, key) => {
-    const bird = new Bird(a, flatAudioList[key].audio).birdPlayer;
-    bird.setListener(flatAudioList[key].audio);
-    return bird;
+    const bird = new Bird(a, flatAudioList[key].audio);
+    bird.birdPlayerSet(flatAudioList[key].audio);
+    return bird.birdPlayer;
   });
   const watchPlayer = new WatchPlayer(birdList);
   birdList.forEach((a) => {
-    console.log(a);
     a.setWatcher(watchPlayer);
   });
   return {};

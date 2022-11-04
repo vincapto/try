@@ -8,13 +8,14 @@ export class Player {
     this.track = track;
   }
 
-  setListener(path) {
+  setListener(path, watchLoad = () => {}) {
     this.state = false;
     this.audioElement = new Audio(path);
     console.log('listener call');
     this.audioElement.addEventListener('loadeddata', () => {
       console.log('----loaded', this.audioElement.duration);
       this.track.setEnd(this.audioElement);
+      watchLoad();
     });
     this.audioElement.addEventListener('timeupdate', (event) => {
       if (this.run) {
