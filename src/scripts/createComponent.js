@@ -126,11 +126,7 @@ export function createQuizStageList(list) {
 export function createScoreBoard(score) {
   console.log(score);
   return `
-      <h3>${
-        score.length !== 0
-          ? `Вы набрали ${score}`
-          : 'Поздравляю! Вы набрали максимум баллов'
-      }</h3>
+      <h3>${getLang() ? `Вы набрали ${score}` : `You got ${score}`}</h3>
       ${
         score.length !== 0
           ? `<button class="btn">${

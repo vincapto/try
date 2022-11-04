@@ -146,8 +146,12 @@
     border-radius: 0.25rem;
     // padding: 6px 12px;
     transition: background-color 0.2s;
-    &:not(:disabled):hover {
+    transition: filter 0.2s;
+    &:not(:disabled) {
       background-color: #008966;
+      &:hover {
+        filter: brightness(110%);
+      }
     }
     &:disabled:hover {
     }

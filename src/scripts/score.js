@@ -11,7 +11,6 @@ export class Score {
   }
 
   nextStage() {
-    console.log('+++++++++++', this.stageScore, this.score);
     this.score += this.stageScore;
   }
 
@@ -33,9 +32,11 @@ export class Score {
   }
 
   getResultScore(list) {
-    return this.score === this.getMaxScore(list)
+    return this.score !== this.getMaxScore(list)
       ? `${this.score}/${this.getMaxScore(list)}`
-      : `максимум. Поздравляю!`;
+      : getLang()
+      ? `максимум. Поздравляю!`
+      : 'max score. Congratulations!';
   }
 
   subScore() {

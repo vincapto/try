@@ -84,6 +84,7 @@ function showBoard(score) {
   const boardBtn = boardScore.querySelector('.btn');
   boardBtn.removeEventListener('click', repeatGame);
   boardBtn.addEventListener('click', repeatGame);
+  clearDisk();
 }
 
 function repeatGame() {
@@ -113,6 +114,11 @@ function toggleDisk(list) {
       'stage__item--active'
     )
   );
+}
+
+function clearDisk() {
+  quizStageItemList.forEach((a) => a.classList.remove('stage__item--active'));
+  quizStageItemList[0].classList.add('stage__item--active');
 }
 
 function getClickAudio(path) {
