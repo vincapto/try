@@ -1,4 +1,11 @@
-import { birdsData, birdsDataEng, stageName, stageNameEng } from './data';
+import {
+  birdsData,
+  birdsDataEng,
+  stageName,
+  stageNameEng,
+  indexData,
+  indexDataEng,
+} from './data';
 
 const menu = [
   { link: '/index.html', text: 'главная' },
@@ -12,12 +19,24 @@ const menuEng = [
 ];
 
 export function getLangData() {
+  const lang = getLang();
+  if (lang) console.log('a');
+  else console.log('b');
+  return getLang()
+    ? { data: birdsData, stageList: stageName, menu, indexData }
+    : {
+        data: birdsDataEng,
+        stageList: stageNameEng,
+        menu: menuEng,
+        indexData: indexDataEng,
+      };
+}
+
+export function getLang() {
   const lang = localStorage.getItem('lang');
-  return lang
-    ? { data: birdsData, stageList: stageName, menu }
-    : { data: birdsDataEng, stageList: stageNameEng, menu: menuEng };
+  return lang ? JSON.parse(lang) : false;
 }
 
 export function saveLang(lang = false) {
-  localStorage.getItem('lang', lang);
+  localStorage.setItem('lang', JSON.stringify(lang));
 }

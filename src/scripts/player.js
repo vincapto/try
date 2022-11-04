@@ -51,9 +51,22 @@ export class Player {
     this.audioElement.volume = value * 0.01;
   }
 
+  stopPlayer() {
+    if (this.audioElement) {
+      this.audioElement.pause();
+      this.state = false;
+      this.callback(this.state);
+    }
+  }
+
+  setWatcher(watch) {
+    this.watch = watch;
+  }
+
   clearPlayer() {
     if (this.audioElement) {
       this.audioElement.pause();
+      this.state = false;
       this.audioElement.currentTime = 0;
       this.audioElement = null;
     }
@@ -66,10 +79,9 @@ export class Player {
   play() {
     console.log('---------------------------', this.state);
     this.run = true;
+    this.watch.callStop(this);
     if (this.state) {
-      this.audioElement.pause();
-      this.state = false;
-      this.callback(this.state);
+      this.stopPlayer();
     } else {
       this.audioElement.play();
       this.state = true;

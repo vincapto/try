@@ -8,9 +8,22 @@
   margin-bottom: 10px;
 }
 
+.switch {
+  a {
+    &.active {
+      color: #00bc8c;
+    }
+    &:hover {
+      color: #00bc8c;
+    }
+  }
+}
+
 .menu {
   display: flex;
   gap: 5px;
+  width: 100%;
+  justify-content: space-between;
 
   @media only screen and (max-width: 360px) {
     justify-content: center;

@@ -31,8 +31,13 @@ export class Stage {
     });
   }
 
-  updateQuizBird(element, id) {
-    element.updateBird(this.getBirdById(id));
+  stopPlay(element) {
+    element.stopPlay();
+  }
+
+  updateQuizBird(element, id, stop = false) {
+    console.log(stop);
+    element.updateBird(this.getBirdById(id), stop);
   }
 
   checkAnswer(id) {
@@ -44,7 +49,7 @@ export class Stage {
   }
 
   isEnd(callback, score) {
-    this.getStageId() == this.stageLength - 1 ? callback(score) : '';
+    this.getStageId() === this.stageLength - 1 ? callback(score) : '';
   }
 
   isCorrect(id) {

@@ -33,7 +33,9 @@ export class Score {
   }
 
   getResultScore(list) {
-    return `${this.score}/${this.getMaxScore(list)}`;
+    return this.score === this.getMaxScore(list)
+      ? `${this.score}/${this.getMaxScore(list)}`
+      : `максимум. Поздравляю!`;
   }
 
   subScore() {

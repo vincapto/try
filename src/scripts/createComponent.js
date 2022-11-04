@@ -1,4 +1,5 @@
 import { RANGE_MAX, VOLUME_MAX } from '../env';
+import { getLang } from '../getData';
 
 export function createLayout(header = '', main = '') {
   return `
@@ -32,6 +33,9 @@ export function createMenu(list) {
           })
           .join('')}
       </ul>
+      <div class='switch'>
+          <a class='switch__eng' href=''>Eng</a><span>/</span><a class='switch__ru' href=''>Ru</a>
+      </div>
   </nav>
   `;
 }
@@ -39,7 +43,7 @@ export function createMenu(list) {
 export function createPlayerTag() {
   return `
   <div class='player'>
-    <button class='btn player__btn'><span class='paused player__playback'></span></button>
+    <button class='btn player__btn'><span class='player__playback'></span></button>
     <div class='player__track'>
       <div class='track-wrapper'>
         <input type='range' class='track' min=0 max=${RANGE_MAX} value=0 />
@@ -99,7 +103,9 @@ export function createBird(
         : ''
     }
     </div>
-    <p class='bird__buffer'>Listen to bird</p>
+    <p class='bird__buffer'>${
+      getLang() ? 'Прослушайте птицу' : 'Listen to bird'
+    }</p>
   `;
 }
 
@@ -118,13 +124,18 @@ export function createQuizStageList(list) {
 export function createScoreBoard(score) {
   console.log(score);
   return `
-    
       <h3>${
         score.length !== 0
           ? `Вы набрали ${score}`
           : 'Поздравляю! Вы набрали максимум баллов'
       }</h3>
-      ${score.length !== 0 ? '<button class="btn">Играть снова</button>' : ''}
+      ${
+        score.length !== 0
+          ? `<button class="btn">${
+              getLang() ? 'Играть снова' : 'Play again'
+            }</button>`
+          : ''
+      }
     
   `;
 }
@@ -164,7 +175,7 @@ export function createQuizContainer() {
       </div>
       <div class='quiz__desc block quiz--hide'>        
       </div>
-      <button class='btn quiz__btn'>Next Level</button>
+      <button class='btn quiz__btn'>${getLang() ? 'Дальше' : 'Next'}</button>
     </div>
     <div class='board-score'></div>
   `;

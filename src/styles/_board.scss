@@ -6,15 +6,16 @@
   background-color: #00bc8c;
   .btn {
     padding: 15px;
-    color: #00bc8c;
+    color: #222;
+    font-weight: 700;
     border: none;
     border-radius: 5px;
     font-size: 15px;
     cursor: pointer;
-    filter: brightness(95%);
+    filter: brightness(100%);
     transition: filter 0.2s;
     &:hover {
-      filter: brightness(100%);
+      filter: brightness(110%);
     }
   }
   &--show {

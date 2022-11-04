@@ -765,3 +765,138 @@ export const birdsData = [
     },
   ],
 ];
+
+export const indexDataEng = [
+  {
+    title: 'Layout, design, UI of all three pages of the application +60',
+    list: [
+      'Application start page (adaptive layout - checked for width from 1920px to 360px) +20',
+      'Quiz page (adaptive layout - checked for width from 1920px to 360px) +30',
+      'Results page (adaptive layout - checked for width from 1920px to 360px) +10}',
+    ],
+  },
+  {
+    title: 'Audio Player +30',
+    list: [
+      'standard HTML5 +10',
+      'custom, the functionality is completely the same as in the demo application, there may be slight differences in design, for example, it may differ in color: +20',
+      'the custom audio player from the previous point has a volume control +30',
+    ],
+  },
+  {
+    title: '{Quiz Page Top Bar +20',
+    list: [
+      'correct display of game score +10',
+      'the current question is styled +10',
+    ],
+  },
+  {
+    title: '{Question block +20',
+    list: [
+      'substitute the default image and change the name of the bird to symbols (***) until the player chooses the correct answer +10',
+      'when choosing the correct answer, the image and name of the hidden bird +10 are displayed in the block with the question',
+    ],
+  },
+  {
+    title: 'Block with answer options (names of birds) +60',
+    list: [
+      'color indication of correct/incorrect answer in the form of indicators of different colors next to the name of the bird: +10',
+      'sound indication of correct/incorrect answer: +30',
+      'when choosing a correct or incorrect answer, different sound signals are emitted: +10',
+      'when choosing a wrong answer, audio player playback should not stop: +10',
+      'if you choose the correct answer, the audio player should stop playing: +10',
+      'clicking on the name of a bird in the block with a description of the bird displays information about it: +10',
+      'if the correct answer has already been given, the ability to view bird descriptions by clicking on the answer options remains, the color of the indicators does not change: +10',
+    ],
+  },
+  {
+    title: 'Bird Description Block: +30',
+    list: [
+      'until the player clicks on the name of a bird from the list, a short text is displayed in the block with a suggestion to listen to the player and select the name of the bird whose voice was +10',
+      'when you click on the name of a bird from the list, the block with the description of the bird displays actual information about it +20',
+    ],
+  },
+  {
+    title: 'Next Question Button +30',
+    list: [
+      'until the correct answer is selected, the button is inactive, it is not possible to proceed to the next task. The active and inactive states of the button are visually different, for example, the active button is green, the inactive button is gray +10',
+      'after answering the last question correctly, the player goes to the page with the results of the quiz +10',
+      'results page contains the number of points scored and a button with an offer to play again (or a notification about the end of the game, if the maximum number of points is scored) +10',
+    ],
+  },
+  {
+    title: 'Extra scope +20',
+    list: [
+      'localization of the application into two languages, the selected language is stored in local storage and is saved on reboot +10',
+      'after answering the last question correctly, the player goes to the page with the results of the quiz +10',
+      'create a gallery of all birds in the application with information about them (photo, audio, title, description) +10',
+    ],
+  },
+];
+export const indexData = [
+  {
+    title: 'Вёрстка, дизайн, UI всех трёх страниц приложения +60',
+    list: [
+      'Стартовая страница приложения (вёрстка адаптивная - проверяется на ширине от 1920рх до 360рх) +20',
+      'Страница викторины (вёрстка адаптивная - проверяется на ширине от 1920рх до 360рх) +30',
+      'Страница с результатами (вёрстка адаптивная - проверяется на ширине от 1920рх до 360рх) +10}',
+    ],
+  },
+  {
+    title: 'Аудиоплеер +30',
+    list: [
+      'стандартный HTML5 +10',
+      'кастомный, функционал полностью такой же, как в демо приложения, могут быть небольшие отличия в оформлении, например, может отличаться по цвету: +20',
+      'у кастомного аудиоплеера из предыдущего пункта есть регулятор громкости звука +30',
+    ],
+  },
+  {
+    title: '{Верхняя панель страницы викторины +20',
+    list: [
+      'правильное отображение счета игры +10',
+      'текущий вопрос выделяется стилем +10',
+    ],
+  },
+  {
+    title: '{Блок с вопросом +20',
+    list: [
+      'подстановка дефолтного изображения и замена названия птицы на символы (***), пока игрок не выберет правильный ответ +10',
+      'при выборе правильного ответа в блоке с вопросом отображается изображение и название загаданной птицы +10',
+    ],
+  },
+  {
+    title: 'Блок с вариантами ответов (названия птиц) +60',
+    list: [
+      'цветовая индикация правильного/неправильного ответа в виде индикаторов разного цвета рядом с названием птицы: +10',
+      'звуковая индикация правильного/неправильного ответа: +30',
+      'при выборе правильного или неправильного ответа издаются разные звуковые сигналы: +10',
+      'при выборе неправильного ответа проигрывание аудиоплеера не должно останавливаться: +10',
+      'при выборе правильно ответа проигрывание аудиоплеера должно остановиться: +10',
+      'при клике по названию птицы в блоке с описанием птицы отображается информацию о ней: +10',
+      'если правильный ответ уже дан, возможность просматривать описания птиц при клике по вариантам ответов остаётся, цвет индикаторов при этом не изменяется: +10',
+    ],
+  },
+  {
+    title: 'Блок с описанием птицы: +30',
+    list: [
+      'пока игрок не кликнул по названию птицы из списка, в блоке выводится короткий текст с предложением послушать плеер и выбрать название птицы, чей голос прозвучал +10',
+      'при клике по названию птицы из списка, в блоке с описанием птицы появляется актуальная информация о ней +20',
+    ],
+  },
+  {
+    title: 'Кнопка перехода к следующему вопросу +30',
+    list: [
+      'пока не выбран правильный ответ, кнопка не активна, нет возможности перейти к следующему заданию. Активное и неактивное состояние кнопки визуально отличаются, например, активная кнопка имеет зеленый, не активная - серый цвет +10',
+      'после правильного ответа на последний вопрос игрок переходит к странице с результатами викторины +10',
+      'страница с результатами содержит количество набранных баллов и кнопку с предложением сыграть ещё раз (или уведомление об окончании игры, если набрано максимальное количество баллов) +10',
+    ],
+  },
+  {
+    title: 'Extra scope +20',
+    list: [
+      'локализация приложения на два языка, выбранный язык хранится в local storage и сохраняется при перезагрузке +10',
+      'после правильного ответа на последний вопрос игрок переходит к странице с результатами викторины +10',
+      'создание галереи всех птиц приложения c информацией о них (фото, аудио, название, описание) +10',
+    ],
+  },
+];

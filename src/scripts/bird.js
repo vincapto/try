@@ -15,17 +15,22 @@ export class Bird {
     this.volumeRange.style.background = this.track.getBackgroundAt(50);
   }
 
-  updateBird({
-    image = '',
-    name = '',
-    species = '',
-    description = '',
-    audio = '',
-  }) {
+  setWatch(watch) {
+    this.birdPlayer.setWatcher(watch);
+  }
+
+  updateBird(
+    { image = '', name = '', species = '', description = '', audio = '' },
+    stop = false
+  ) {
     this.imgElement.src = image;
     this.nameElement.innerHTML = name;
-    this.birdPlayer.clearPlayer();
-    audio ? this.birdPlayer.setListener(audio) : '';
+    if (audio && !stop) {
+      this.birdPlayer.clearPlayer();
+      this.birdPlayer.setListener(audio);
+    } else {
+      this.birdPlayer.stopPlayer();
+    }
     this.checkElementExist(this.speciesElement, species);
     this.checkElementExist(this.textElement, description);
   }

@@ -140,15 +140,16 @@
     font-weight: 400;
     text-align: center;
     vertical-align: middle;
-
     padding: 0.375rem 0.75rem;
     font-size: 0.9375rem;
     line-height: 1.5;
     border-radius: 0.25rem;
     // padding: 6px 12px;
     transition: background-color 0.2s;
-    &:hover {
+    &:not(:disabled):hover {
       background-color: #008966;
+    }
+    &:disabled:hover {
     }
   }
 }
