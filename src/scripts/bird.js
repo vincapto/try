@@ -102,7 +102,6 @@ export class Bird {
   }
 
   watchLoad() {
-    console.log('GOT LOADED LOL');
     this.loading.classList.add('player--hide');
     this.playerTrack.classList.remove('player--hide');
     this.volumeRange.classList.remove('player--hide');
